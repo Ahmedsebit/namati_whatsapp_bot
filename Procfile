@@ -1,1 +1,1 @@
-web: gunicorn namati:create_app
+web: gunicorn app:app
