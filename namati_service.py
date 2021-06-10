@@ -1,3 +1,3 @@
-from namati import create_app, db, cli
+from namati import create_app, db
 
 app = create_app('development')
