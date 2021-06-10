@@ -1,10 +1,8 @@
 import json
 from datetime import datetime
 from sqlalchemy import exc, desc
-from namati.app import db
-from namati.app import logger
+from namati import db, logger, celery
 from namati.models.messages import MessageReceived
-from namati.app import celery
 
 
 def add_message(message_metadata, status, response):

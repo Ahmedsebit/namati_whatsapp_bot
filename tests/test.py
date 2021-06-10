@@ -3,7 +3,7 @@ from pathlib import Path
 import unittest
 import os
 from flask import json, jsonify
-from namati.app import create_app, db
+from namati import create_app, db
 
 
 class ModelsTestCase(unittest.TestCase):

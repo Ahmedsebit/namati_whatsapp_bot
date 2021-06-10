@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql.json import JSONB
 from sqlalchemy.dialects.postgresql import ENUM
-from namati.app import db
+from namati import db
 
 
 class MessageReceived(db.Model):

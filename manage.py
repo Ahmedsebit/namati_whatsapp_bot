@@ -1,7 +1,7 @@
 import os
 from flask_script import Manager # class for handling a set of commands
 from flask_migrate import Migrate, MigrateCommand
-from namati.app import create_app
+from namati import create_app
 from namati import models
 
 
