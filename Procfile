@@ -1,1 +1,1 @@
-web: gunicorn namati.app:app
+web: gunicorn namati.app.app:app
