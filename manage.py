@@ -1,8 +1,8 @@
 import os
 from flask_script import Manager # class for handling a set of commands
 from flask_migrate import Migrate, MigrateCommand
-from app.app import create_app
-from app import models
+from namati.app import create_app
+from namati import models
 
 
 app = create_app(config_name=os.getenv('APP_SETTINGS'))

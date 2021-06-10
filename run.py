@@ -1,5 +1,5 @@
 import os
-from app.app import create_app
+from namati.app import create_app
 
 
 config_name = os.getenv('APP_SETTINGS')
