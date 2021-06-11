@@ -10,8 +10,8 @@ client = Client(account_sid, auth_token)
 def send_whatsapp(sender, message, recepients):
     
     response = client.messages.create(
-                              from_=f'whatsapp:{sender}',
+                              from_=f'{sender}',
                               body=message,
-                              to=f'whatsapp:{recepients}'
+                              to=f'{recepients}'
                           )
     return response 
