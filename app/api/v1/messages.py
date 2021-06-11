@@ -14,7 +14,7 @@ namati_v1_api_bp = Blueprint(
 @namati_v1_api_bp.route('/api/receive_message', methods=['POST'])
 def receive_message_api():
     data = request.data
-    print(data)
-    response = respond(data)
-    send_whatsapp('+14155238886', response, '+254701874389')
+    print(data.To, data.From, data.Body)
+    response = respond(data.Body)
+    send_whatsapp('+14155238886', response, data.From)
     return response
