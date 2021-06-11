@@ -1,7 +1,5 @@
-def respond(data):
-    
-    message = data.get("message")
-    
+def respond(message):
+
     if 'tesing' in message:    
         return f'Hi test currenly only'
     else:
