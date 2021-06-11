@@ -16,5 +16,5 @@ def receive_message_api():
     data = request.data
     print(data['To'], data['From'], data['Body'])
     response = respond(data['Body'])
-    send_whatsapp('+14155238886', response, data.From)
+    send_whatsapp(data['To'], response, data['From'])
     return response
