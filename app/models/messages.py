@@ -12,7 +12,7 @@ class MessageReceived(db.Model):
     This class represents the lca messages_received table.
     '''
     
-    __tablename__ = 'messages'
+    __tablename__ = 'messages_received'
     __table_args__ = {'schema': 'public'}
 
     id = db.Column(db.Integer, primary_key=True)
@@ -31,12 +31,12 @@ class MessageReceived(db.Model):
         return "<MessagesReceived: {}>".format(self.id)
     
     
-class MessageReceived(db.Model):
+class MessageSent(db.Model):
     '''
     This class represents the lca messages_received table.
     '''
     
-    __tablename__ = 'messages'
+    __tablename__ = 'messages_received'
     __table_args__ = {'schema': 'public'}
 
     id = db.Column(db.Integer, primary_key=True)
@@ -52,5 +52,5 @@ class MessageReceived(db.Model):
         self.response = response
 
     def __repr__(self):
-        return "<MessagesReceived: {}>".format(self.id)
+        return "<MessageSent: {}>".format(self.id)
     
