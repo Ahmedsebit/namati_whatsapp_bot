@@ -12,7 +12,7 @@ class MessageReceived(db.Model):
     This class represents the lca messages_received table.
     '''
     
-    __tablename__ = 'messages_received'
+    __tablename__ = 'messages'
     __table_args__ = {'schema': 'public'}
 
     id = db.Column(db.Integer, primary_key=True)
@@ -31,26 +31,26 @@ class MessageReceived(db.Model):
         return "<MessagesReceived: {}>".format(self.id)
     
     
-class MessageSent(db.Model):
-    '''
-    This class represents the lca messages_received table.
-    '''
+# class MessageSent(db.Model):
+#     '''
+#     This class represents the lca messages_received table.
+#     '''
     
-    __tablename__ = 'messages_received'
-    __table_args__ = {'schema': 'public'}
+#     __tablename__ = 'messages_received'
+#     __table_args__ = {'schema': 'public'}
 
-    id = db.Column(db.Integer, primary_key=True)
-    message_metadata = db.Column(JSONB)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    status = db.Column(db.String(255))
-    response = db.Column(db.String(255))
+#     id = db.Column(db.Integer, primary_key=True)
+#     message_metadata = db.Column(JSONB)
+#     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+#     status = db.Column(db.String(255))
+#     response = db.Column(db.String(255))
     
-    def __init__(self, message_metadata, status, response):
+#     def __init__(self, message_metadata, status, response):
         
-        self.message_metadata = message_metadata
-        self.status = status
-        self.response = response
+#         self.message_metadata = message_metadata
+#         self.status = status
+#         self.response = response
 
-    def __repr__(self):
-        return "<MessageSent: {}>".format(self.id)
+#     def __repr__(self):
+#         return "<MessageSent: {}>".format(self.id)
     
