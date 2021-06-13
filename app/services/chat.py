@@ -9,7 +9,7 @@ def respond(message):
         return namati_items.get('what_is_namati')
     elif 'citizenship' in message and 'justice' in message and  'partners' in message:
         return
-    elif 'land' in message and 'environmental' in message and 'justicepartners' in message: 
+    elif 'land' in message and 'environmental' in message and 'justice' in message and 'partners' in message: 
         return namati_items.get('land_environmental_justicepartners')
     elif 'impact' in message:
         return namati_items.get('impact')
@@ -29,7 +29,7 @@ def respond(message):
         return namati_items.get('grassroots_legal_empowerment')
     elif 'recognition' in message:
         return namati_items.get('recognition')
-    elif 'our' in message and 'mission' in message:
+    elif 'mission' in message:
         return namati_items.get('our_mission')
     elif 'meaning' in message:
         return namati_items.get('meaning')
