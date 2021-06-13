@@ -1,7 +1,7 @@
 from app.resources.items import namati_items
 
 
-def respond(message, namati_items):
+def respond_message(message):
     
     message = message.lower()
     
