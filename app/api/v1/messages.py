@@ -38,7 +38,6 @@ def citizenhsip_chat_api():
     recipient = data['To']
     
     phone_number = data.get('phone_number', None)
-    message = data.get('message', None)
     response = sessions(phone_number, message)
     send_whatsapp(recipient, response, sender)
     return response
