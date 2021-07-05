@@ -64,7 +64,6 @@ py-vapid==1.7.1
 pyasn1==0.4.8
 pycountry==20.7.3
 pycparser==2.20
-pygelf==0.3.6
 PyJWT==1.7.1
 pyodbc==4.0.30
 pyrsistent==0.17.3
