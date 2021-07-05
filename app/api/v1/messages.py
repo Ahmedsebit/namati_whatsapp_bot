@@ -30,10 +30,9 @@ def chat_api():
 
 @namati_v1_api_bp.route('/api/citizenship_chat', methods=['POST'])
 def citizenhsip_chat_api():
+    
     data = request.data
-    
-    message = respond(data['Body'])
-    
+    message = data['Body']
     sender = data['From']
     recipient = data['To']
     

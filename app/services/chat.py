@@ -61,7 +61,7 @@ kenyan_citizenship = [
                         'Have you been married for more than 7 years'
                     ]
 
-main_message = '''What would you like to do:\nUnderstand if If I’m a Kenyan citizen\nUnderstand if I qualify for an ID\nUnderstand the what I need to apply for an ID\nUnderstand the process of applying for an ID Card'''
+main_message = '''What would you like to do:\nUnderstand if I’m a Kenyan citizen\nUnderstand if I qualify for an ID\nUnderstand the what I need to apply for an ID\nUnderstand the process of applying for an ID Card'''
                 
 welcome_message = '''Welcome to chat with us at namati.'''
                 
