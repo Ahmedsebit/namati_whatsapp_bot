@@ -54,6 +54,7 @@ def create_app(config_name):
     import app.api.v1.messages as api_v1
     
     db.init_app(app)
+    migrate.init_app(app, db)
     
     celery.conf.update(app.config)
     
