@@ -61,7 +61,7 @@ kenyan_citizenship = [
                         'Have you been married for more than 7 years'
                     ]
 
-main_message = '''What would you like to do:\nUnderstand if I’m a Kenyan citizen\nUnderstand if I qualify for an ID\nUnderstand the what I need to apply for an ID\nUnderstand the process of applying for an ID Card'''
+main_message = '''What would you like to do:\n1. Understand if I’m a Kenyan citizen\n2. Understand if I qualify for an ID\n3. Understand the what I need to apply for an ID\n4. Understand the process of applying for an ID Card'''
                 
 welcome_message = '''Welcome to chat with us at namati.'''
                 
@@ -130,16 +130,16 @@ def sessions(phone_number, message):
             return main_message
         
         if user_session['journey'] == None:
-            if 'kenyan'in message and 'citizen' in message:
+            if 'kenyan'in message and 'citizen' in message or '1' in message:
                 update_journey_session(phone_number, 'citizenship')
                 return citizenship(phone_number, message)
-            elif 'qualify' in message and 'id' in message:
+            elif 'qualify' in message and 'id' in message or '2' in message:
                 update_journey_session(phone_number, 'id_qualification')
                 return qualification(phone_number, message)
-            elif 'need' in message and 'apply' in message and 'id' in message:
+            elif 'need' in message and 'apply' in message and 'id' in message or '3' in message:
                 update_journey_session(phone_number, 'id_application_documents')
                 return application_documents(phone_number, message)
-            elif 'process' in message and 'apply' in message and 'id' in message:
+            elif 'process' in message and 'apply' in message and 'id' in message or '4' in message:
                 update_journey_session(phone_number, 'id_process')
                 return id_application_process(phone_number, message)
             else:
@@ -258,7 +258,7 @@ def citizenship(phone_number, response):
         elif 'yes' in response:
             update_level_session(phone_number, True) 
             end_session(phone_number)
-            return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou do qualify for Kenyan Citizenship"
+            return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou qualify for Kenyan Citizenship"
         else:
             return f"Please answer as yes or no\n {message}"
     elif user_session['level'] == len(kenyan_citizenship)-1:
@@ -281,7 +281,7 @@ def citizenship(phone_number, response):
             update_level_session(phone_number, True)
             end_session(phone_number)
             cp_emoji = emoji.emojize(':clapping_hands:')
-            return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou do qualify for Kenyan Citizenship"
+            return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou qualify for Kenyan Citizenship"
         else:
             if user_session['level'] == 0:
                 if 'no' in response:

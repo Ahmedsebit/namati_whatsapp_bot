@@ -22,6 +22,7 @@ def receive_message_api():
 @namati_v1_api_bp.route('/api/chat', methods=['POST'])
 def chat_api():
     data = request.data
+    
     phone_number = data.get('phone_number', None)
     message = data.get('message', None)
     response = sessions(phone_number, message)
@@ -29,7 +30,7 @@ def chat_api():
 
 
 @namati_v1_api_bp.route('/api/citizenship_chat', methods=['POST'])
-def citizenhsip_chat_api():
+def citizenship_chat_api():
     
     data = request.data
     message = data['Body']
@@ -40,3 +41,17 @@ def citizenhsip_chat_api():
     response = sessions(phone_number, message)
     send_whatsapp(recipient, response, sender)
     return response
+
+
+# @namati_v1_api_bp.route('/api/citizenship', methods=['POST'])
+# def citizenship():
+    
+#     data = request.data
+#     message = data['Body']
+#     sender = data['From']
+#     recipient = data['To']
+    
+#     phone_number = data.get('phone_number', None)
+#     response = sessions(phone_number, message)
+#     send_whatsapp(recipient, response, sender)
+#     return response
