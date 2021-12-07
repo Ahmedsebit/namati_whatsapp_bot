@@ -39,7 +39,7 @@ def citizenship_chat_api():
     
     phone_number = data.get('phone_number', None)
     response = sessions(phone_number, message)
-    # send_whatsapp(recipient, response, sender)
+    send_whatsapp(recipient, response, sender)
     return response
 
 
