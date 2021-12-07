@@ -180,24 +180,18 @@ def qualification(phone_number, response):
         elif user_session['results'] == False:
             if 'no' not in response or 'yes' not in response:
                 update_level_session(phone_number, False)
+                end_session(phone_number)
                 return "Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID"
             else:
                 return f"Please answer as yes or no\n {message}"
     else:
+        update_level_session(phone_number, True)
         if 'no' in response:
-            update_level_session(phone_number, False)
-            return f"Great {p_emoji}\n{message}" 
+            end_session(phone_number)
+            return "Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID"
         elif 'yes' in response:
-            update_level_session(phone_number, True)
             return f"Great {p_emoji}\n{message}" 
         else:
-            if user_session['level'] == 0:
-                if 'no' in response:
-                    update_level_session(phone_number, False)
-                    return f"Great {p_emoji}\n{message}" 
-                elif 'yes' in response:
-                    update_level_session(phone_number, True)
-                    return f"Great {p_emoji}\n{message}" 
             return f"Please answer as yes or no\n {message}" 
 
     
@@ -227,21 +221,13 @@ def application_documents(phone_number, response):
             else:
                 return f"Please answer as yes or no\n {message}"
     else:
+        update_level_session(phone_number, True)
         if 'no' in response:
-            update_level_session(phone_number, False)
-            
-            return f"Great {p_emoji}\n{message}" 
+            end_session(phone_number)
+            return f"Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id"
         elif 'yes' in response:
-            update_level_session(phone_number, True)
             return f"Great {p_emoji}\n{message}" 
         else:
-            if user_session['level'] == 0:
-                if 'no' in response:
-                    update_level_session(phone_number, False)
-                    return f"Great {p_emoji}\n{message}" 
-                elif 'yes' in response:
-                    update_level_session(phone_number, True)
-                    return f"Great {p_emoji}\n{message}" 
             return f"Please answer as yes or no\n {message}" 
 
 
@@ -258,6 +244,7 @@ def citizenship(phone_number, response):
         elif 'yes' in response:
             update_level_session(phone_number, True) 
             end_session(phone_number)
+            cp_emoji = emoji.emojize(':clapping_hands:')
             return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou qualify for Kenyan Citizenship"
         else:
             return f"Please answer as yes or no\n {message}"
@@ -273,24 +260,15 @@ def citizenship(phone_number, response):
         else:
             return f"Please answer as yes or no\n {message}"
     else:
+        update_level_session(phone_number, False)
         message = kenyan_citizenship[user_session['level']]
         if 'no' in response:
-            update_level_session(phone_number, False)
             return f"Great {p_emoji}\n{message}" 
         elif 'yes' in response:
-            update_level_session(phone_number, True)
             end_session(phone_number)
             cp_emoji = emoji.emojize(':clapping_hands:')
             return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou qualify for Kenyan Citizenship"
         else:
-            if user_session['level'] == 0:
-                if 'no' in response:
-                    update_level_session(phone_number, False)
-                    return f"Great {p_emoji}\n{message}" 
-                elif 'yes' in response:
-                    update_level_session(phone_number, True)
-                    end_session(phone_number)
-                    return f"Great {p_emoji}\n{message}" 
             return f"Please answer as yes or no\n {message}"
 
 
