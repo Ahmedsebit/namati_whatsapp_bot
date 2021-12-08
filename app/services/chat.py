@@ -56,7 +56,6 @@ id_application_documents = [
  
 kenyan_citizenship = [
                         'Are any of your parents a Kenyan citizen',
-                        'Were you born in Kenya',
                         'Are you married to a Kenyan',
                         'Have you been married for more than 7 years'
                     ]
@@ -77,7 +76,8 @@ id_application_process_message = [
 'If the form passes this stage, ﬁnger prints and a passport size photograph of the applicant are taken to be sent together with the form to the relevant offices mandated with the creation of the national identity cards.',
 'The applicant is then issued with a waiting card with which they can use as the national identity card as they wait for their national identity card to be processed.',
 'The waiting period may last up to two one year.',
-'Check after at least two months to see if the ID is issued.'
+'Check after at least two months to see if the ID is issued.',
+'Reply with \'OK\' to start a new conversation'
 ]
 
 def respond(message):
@@ -120,6 +120,9 @@ def sessions(phone_number, message):
     message = message.lower()
     if get_user(phone_number):
         user_session = get_user_session(phone_number)
+        
+        if user_session['status'] == 'Inactive' and 'yes' in message:
+            return "\n".join(id_application_process_message)
         
         if user_session is None:
             add_session(phone_number, 0)
@@ -170,27 +173,27 @@ def qualification(phone_number, response):
             if 'no' in response:
                 update_level_session(phone_number, False)
                 end_session(phone_number)
-                return "Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID"
+                return "You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\nReply with \'OK\' to start a new conversation"
             elif 'yes' in response:
                 update_level_session(phone_number, True) 
                 end_session(phone_number)
-                return "Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou qualify for a Kenyan ID"
+                return "You qualify for a Kenyan ID\nWould You like to know the process of getting an id"
             else:
-                return f"Please answer as yes or no\n {message}"
+                return f"Please answer as yes or no\n{message}"
         elif user_session['results'] == False:
             if 'no' not in response or 'yes' not in response:
                 update_level_session(phone_number, False)
                 end_session(phone_number)
-                return "Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID"
+                return "You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\nReply with \'OK\' to start a new conversation"
             else:
                 return f"Please answer as yes or no\n {message}"
     else:
         update_level_session(phone_number, True)
         if 'no' in response:
             end_session(phone_number)
-            return "Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID"
+            return "You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\nReply with \'OK\' to start a new conversation"
         elif 'yes' in response:
-            return f"Great {p_emoji}\n{message}" 
+            return f"{message}" 
         else:
             return f"Please answer as yes or no\n {message}" 
 
@@ -206,27 +209,27 @@ def application_documents(phone_number, response):
             if 'no' in response:
                 update_level_session(phone_number, False)
                 end_session(phone_number)
-                return f"Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id"
+                return f"You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\nReply with \'OK\' to start a new conversation"
             elif 'yes' in response:
                 update_level_session(phone_number, True) 
                 end_session(phone_number)
-                return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou qualify to get a Kenyan ID"
+                return f"You qualify to get a Kenyan ID\nWould You like to know the process of getting an id"
             else:
                 return f"Please answer as yes or no\n {message}"
         elif user_session['results'] == False:
             if 'no' not in response or 'yes' not in response:
                 update_level_session(phone_number, False)
                 end_session(phone_number)
-                return f"Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id"
+                return f"You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\nReply with \'OK\' to start a new conversation"
             else:
                 return f"Please answer as yes or no\n {message}"
     else:
         update_level_session(phone_number, True)
         if 'no' in response:
             end_session(phone_number)
-            return f"Sorry {df_emoji}{df_emoji}{df_emoji}\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id"
+            return f"You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\nReply with \'OK\' to start a new conversation"
         elif 'yes' in response:
-            return f"Great {p_emoji}\n{message}" 
+            return f"{message}" 
         else:
             return f"Please answer as yes or no\n {message}" 
 
@@ -240,12 +243,11 @@ def citizenship(phone_number, response):
         if 'no' in response:
             update_level_session(phone_number, False)
             end_session(phone_number)
-            return f"Sorry {df_emoji}{df_emoji}{df_emoji}\nYou do not qualify for Kenyan Citizenship"
+            return f"You do not qualify for Kenyan Citizenship"
         elif 'yes' in response:
             update_level_session(phone_number, True) 
             end_session(phone_number)
-            cp_emoji = emoji.emojize(':clapping_hands:')
-            return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou qualify for Kenyan Citizenship"
+            return f"You qualify for Kenyan Citizenship\nWould You like to know the process of getting an id"
         else:
             return f"Please answer as yes or no\n {message}"
     elif user_session['level'] == len(kenyan_citizenship)-1:
@@ -253,21 +255,21 @@ def citizenship(phone_number, response):
         if 'no' in response:
             update_level_session(phone_number, False)
             end_session(phone_number)
-            return f"Sorry {df_emoji}{df_emoji}{df_emoji}\nYou do not qualify for Kenyan Citizenship"
+            return f"You do not qualify for Kenyan Citizenship\nReply with \'OK\' to start a new conversation"
         elif 'yes' in response:
             update_level_session(phone_number, True)
-            return f"Great {p_emoji}\n{message}" 
+            return f"{message}" 
         else:
             return f"Please answer as yes or no\n {message}"
     else:
         update_level_session(phone_number, False)
         message = kenyan_citizenship[user_session['level']]
         if 'no' in response:
-            return f"Great {p_emoji}\n{message}" 
+            return f"{message}" 
         elif 'yes' in response:
             end_session(phone_number)
             cp_emoji = emoji.emojize(':clapping_hands:')
-            return f"Congratulations {cp_emoji}{cp_emoji}{cp_emoji}\nYou qualify for Kenyan Citizenship"
+            return f"You qualify for Kenyan Citizenship\nWould You like to know the process of getting an id"
         else:
             return f"Please answer as yes or no\n {message}"
 
