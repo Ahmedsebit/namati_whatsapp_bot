@@ -244,7 +244,7 @@ def citizenship(phone_number, response):
         if 'no' in response:
             update_level_session(phone_number, False)
             end_session(phone_number)
-            return f"Sorry\n\nYou do not qualify for Kenyan ID\n\nWould You like to know the process of getting an id"
+            return f"Sorry\n\nYou do not qualify for Kenyan ID\n\nReply with \'OK\' to start a new conversation"
         elif 'yes' in response:
             update_level_session(phone_number, True) 
             end_session(phone_number)
@@ -269,7 +269,7 @@ def citizenship(phone_number, response):
             return f"{message}" 
         elif 'yes' in response:
             end_session(phone_number)
-            return f"Congratulations{cp_emoji}{cp_emoji}{cp_emoji}\n\nYou qualify for Kenyan Citizenship\n\nWould You like to know the process of getting an id"
+            return f"Congratulations{cp_emoji}{cp_emoji}{cp_emoji}\n\nYou qualify for Kenyan ID\n\nWould You like to know the process of getting an id"
         else:
             return f"Please answer as yes or no\n\n {message}"
 
