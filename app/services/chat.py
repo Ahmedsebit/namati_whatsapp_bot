@@ -60,7 +60,7 @@ kenyan_citizenship = [
                         'Have you been married for more than 7 years'
                     ]
 
-main_message = '''What would you like to do:\n1. Understand if I’m a Kenyan citizen\n2. Understand if I qualify for an ID\n3. Understand the what I need to apply for an ID\n4. Understand the process of applying for an ID Card'''
+main_message = '''What would you like to do:\n\n1. Understand if I’m a Kenyan citizen\n\n2. Understand if I qualify for an ID\n\n3. Understand the what I need to apply for an ID\n\n4. Understand the process of applying for an ID Card'''
                 
 welcome_message = '''Welcome to chat with us at namati.'''
                 
@@ -122,7 +122,7 @@ def sessions(phone_number, message):
         user_session = get_user_session(phone_number)
         
         if user_session['status'] == 'Inactive' and 'yes' in message:
-            return "\n".join(id_application_process_message)
+            return "\n\n".join(id_application_process_message)
         
         if user_session is None:
             add_session(phone_number, 0)
@@ -146,7 +146,7 @@ def sessions(phone_number, message):
                 update_journey_session(phone_number, 'id_process')
                 return id_application_process(phone_number, message)
             else:
-                return f'please choose from the given option\n{main_message}'
+                return f'please choose from the given option\n\n{main_message}'
             
         elif user_session['journey'] == 'id_qualification':
             return qualification(phone_number, message)
@@ -160,42 +160,42 @@ def sessions(phone_number, message):
     else:
         add_user(phone_number)
         add_session(phone_number, 0)
-        return f'{welcome_message}\n{main_message}'
+        return f'{welcome_message}\n\n{main_message}'
 
 
 def qualification(phone_number, response):
     
     user_session = get_user_session(phone_number)
     message = id_qualification[user_session['level']]
-    p_emoji = emoji.emojize(':thumbs_up:')
+    cp_emoji = emoji.emojize(':clapping_hands:')
     if user_session['level'] == len(id_qualification)-1:
         if user_session['results'] == True:
             if 'no' in response:
                 update_level_session(phone_number, False)
                 end_session(phone_number)
-                return "You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\nReply with \'OK\' to start a new conversation"
+                return "Sorry\n\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\n\nReply with \'OK\' to start a new conversation"
             elif 'yes' in response:
                 update_level_session(phone_number, True) 
                 end_session(phone_number)
-                return "You qualify for a Kenyan ID\nWould You like to know the process of getting an id"
+                return "Congratulations{cp_emoji}{cp_emoji}{cp_emoji}\n\nYou qualify for a Kenyan ID\n\nWould You like to know the process of getting an id"
             else:
-                return f"Please answer as yes or no\n{message}"
+                return f"Please answer as yes or no\n\n{message}"
         elif user_session['results'] == False:
             if 'no' not in response or 'yes' not in response:
                 update_level_session(phone_number, False)
                 end_session(phone_number)
-                return "You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\nReply with \'OK\' to start a new conversation"
+                return "Sorry\n\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\n\nReply with \'OK\' to start a new conversation"
             else:
-                return f"Please answer as yes or no\n {message}"
+                return f"Please answer as yes or no\n\n {message}"
     else:
         update_level_session(phone_number, True)
         if 'no' in response:
             end_session(phone_number)
-            return "You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\nReply with \'OK\' to start a new conversation"
+            return "Sorry\n\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to qualify for a Kenyan ID\n\nReply with \'OK\' to start a new conversation"
         elif 'yes' in response:
             return f"{message}" 
         else:
-            return f"Please answer as yes or no\n {message}" 
+            return f"Please answer as yes or no\n\n {message}" 
 
     
 def application_documents(phone_number, response):
@@ -209,58 +209,59 @@ def application_documents(phone_number, response):
             if 'no' in response:
                 update_level_session(phone_number, False)
                 end_session(phone_number)
-                return f"You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\nReply with \'OK\' to start a new conversation"
+                return f"Sorry\n\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\n\nReply with \'OK\' to start a new conversation"
             elif 'yes' in response:
                 update_level_session(phone_number, True) 
                 end_session(phone_number)
-                return f"You qualify to get a Kenyan ID\nWould You like to know the process of getting an id"
+                return f"Congratulations{cp_emoji}{cp_emoji}{cp_emoji}\n\nYou qualify to get a Kenyan ID\n\nWould You like to know the process of getting an id"
             else:
-                return f"Please answer as yes or no\n {message}"
+                return f"Please answer as yes or no\n\n {message}"
         elif user_session['results'] == False:
             if 'no' not in response or 'yes' not in response:
                 update_level_session(phone_number, False)
                 end_session(phone_number)
-                return f"You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\nReply with \'OK\' to start a new conversation"
+                return f"Sorry\n\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\n\nReply with \'OK\' to start a new conversation"
             else:
-                return f"Please answer as yes or no\n {message}"
+                return f"Please answer as yes or no\n\n{message}"
     else:
         update_level_session(phone_number, True)
         if 'no' in response:
             end_session(phone_number)
-            return f"You need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\nReply with \'OK\' to start a new conversation"
+            return f"Sorry\n\nYou need to be a kenyan, above 18 with proof of age and have parents citizenship proof to apply for id\n\nReply with \'OK\' to start a new conversation"
         elif 'yes' in response:
             return f"{message}" 
         else:
-            return f"Please answer as yes or no\n {message}" 
+            return f"Please answer as yes or no\n\n {message}" 
 
 
 def citizenship(phone_number, response):
     
     user_session = get_user_session(phone_number)
+    cp_emoji = emoji.emojize(':clapping_hands:')
     
     if user_session['level'] == len(kenyan_citizenship):
         message = kenyan_citizenship[user_session['level']-1]
         if 'no' in response:
             update_level_session(phone_number, False)
             end_session(phone_number)
-            return f"You do not qualify for Kenyan Citizenship"
+            return f"Sorry\n\nYou do not qualify for Kenyan ID\n\nWould You like to know the process of getting an id"
         elif 'yes' in response:
             update_level_session(phone_number, True) 
             end_session(phone_number)
-            return f"You qualify for Kenyan Citizenship\nWould You like to know the process of getting an id"
+            return f"Congratulations{cp_emoji}{cp_emoji}{cp_emoji}\n\nYou qualify for Kenyan ID\n\nWould You like to know the process of getting an id"
         else:
-            return f"Please answer as yes or no\n {message}"
+            return f"Please answer as yes or no\n\n {message}"
     elif user_session['level'] == len(kenyan_citizenship)-1:
         message = kenyan_citizenship[user_session['level']]
         if 'no' in response:
             update_level_session(phone_number, False)
             end_session(phone_number)
-            return f"You do not qualify for Kenyan Citizenship\nReply with \'OK\' to start a new conversation"
+            return f"Sorry\n\nYou do not qualify for Kenyan ID\n\nReply with \'OK\' to start a new conversation"
         elif 'yes' in response:
             update_level_session(phone_number, True)
             return f"{message}" 
         else:
-            return f"Please answer as yes or no\n {message}"
+            return f"Please answer as yes or no\n\n{message}"
     else:
         update_level_session(phone_number, False)
         message = kenyan_citizenship[user_session['level']]
@@ -268,16 +269,15 @@ def citizenship(phone_number, response):
             return f"{message}" 
         elif 'yes' in response:
             end_session(phone_number)
-            cp_emoji = emoji.emojize(':clapping_hands:')
-            return f"You qualify for Kenyan Citizenship\nWould You like to know the process of getting an id"
+            return f"Congratulations{cp_emoji}{cp_emoji}{cp_emoji}\n\nYou qualify for Kenyan Citizenship\n\nWould You like to know the process of getting an id"
         else:
-            return f"Please answer as yes or no\n {message}"
+            return f"Please answer as yes or no\n\n {message}"
 
 
 def id_application_process(phone_number, response):
 
     user_session = get_user_session(phone_number)
-    message = "\n".join(id_application_process_message)
+    message = "\n\n".join(id_application_process_message)
     end_session(phone_number)
     return message
     
